@@ -7,8 +7,9 @@ from utils import RandNextCell
 # 2 - river
 # 3 - hospital
 # 4 - upgrade shop
+# 5 - fire
 
-CELL_TYPES = "🟩🌲🟦🏥🏦"
+CELL_TYPES = "🟩🌲🟦🏥🏦🔥"
 
 class Map:
     def GenerateRiver(self, lenght):
@@ -30,6 +31,11 @@ class Map:
                 if RandBool(r, mxr):
                     self.cells[ri][ci] = 1
 
+    def AddTree(self):
+        c = RandCell(self.width, self.height)
+        cx, cy = c[0], c[1]
+        if(self.CheckBounds(cx, cy) and self.cells[cx][cy] == 0):
+            self.cells[cx][cy] = 1
 
     def PrintMap(self):
         print("⬛" * (self.width + 2))
@@ -41,6 +47,12 @@ class Map:
             print("⬛")
         print("⬛" * (self.width + 2))   
 
+    def AddFire(self):
+        c = RandCell(self.width, self.height)
+        cx, cy = c[0], c[1]
+        if self.cells[cx][cy] == 1:
+            self.cells[cx][cy] = 5        
+
     def CheckBounds(self, x, y):
         if(x < 0 or y < 0 or x >= self.height or y >=self.width):
             return False
@@ -51,10 +63,3 @@ class Map:
         self.height = height
         self.cells = [[0 for i in range(width)] for j in range(height)]
  
-# Тест
-tmp = Map(20,10)
-tmp.GenerateForest(3,10)
-tmp.GenerateRiver(10)
-tmp.GenerateRiver(10)
-tmp.GenerateRiver(10)
-tmp.PrintMap()
