@@ -10,6 +10,7 @@ from utils import RandNextCell
 # 5 - fire
 
 CELL_TYPES = "🟩🌲🟦🏥🏦🔥"
+TREE_BONUS = 100
 
 class Map:
 
@@ -94,8 +95,13 @@ class Map:
                 if cell == 5:                    
                     self.cells[ri][ci] = 0
         for i in range(5):
-            self.AddFire()           
+            self.AddFire()   
 
-
-    
- 
+    def ProcessHelicopter(self, helico):
+        c = self.cells[helico.x][helico.y] 
+        if (c == 2):
+            helico.tank = helico.mxtank
+        elif (c == 5 and helico.tank > 0):
+            helico.tank -= 1
+            helico.score += TREE_BONUS
+            self.cells[helico.x][helico.y] = 1

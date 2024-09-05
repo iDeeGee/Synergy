@@ -1,4 +1,4 @@
-# 🌲🌊🚁🟩🔥🏥💌🫗🏦🌥️⚡🏆⬛
+# 🌲🌊🚁🟩🔥🏥💌🔵🏦🌥️⚡🏆⬛
 
 from pynput import keyboard
 from map import Map
@@ -22,33 +22,31 @@ field.GenerateRiver(10)
 
 helico = Helic(MAP_W, MAP_H)
 
-tick = 1  
+MOVES = {'w': (-1, 0), 'd': (0, 1), 's': (1, 0), 'a': (0, -1)}
 
-def on_press(key):
-    try:
-        print('alphanumeric key {0} pressed'.format(
-            key.char))
-    except AttributeError:
-        print('special key {0} pressed'.format(
-            key))
+def ProcessKey(key):
+    global helico
+    c = key.char.lower()
+    if c in MOVES.keys():
+        dx, dy = MOVES[c][0], MOVES[c][1]
+        helico.Move(dx, dy)
 
-def on_release(key):
-    print('{0} released'.format(
-        key))
-    if key == keyboard.Key.esc:
-        # Stop listener
-        return False
+        
 
-
-# ...or, in a non-blocking fashion:
 listener = keyboard.Listener(
-    on_press=on_press,
-    on_release=on_release)
+    on_press=None,
+    on_release=ProcessKey)
 listener.start()  
 
+
+tick = 1  
+
+# CONFIG
 while True:
     os.system("cls")
-    print("TICK", tick)
+    #print("TICK", tick)
+    field.ProcessHelicopter(helico)
+    helico.PrintStats()
     field.PrintMap(helico)
     tick += 1
     time.sleep(TICK_SLEEP)
