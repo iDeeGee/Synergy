@@ -8,15 +8,17 @@ from helic import Helicopter as Helic
 
 
 
-TICK_SLEEP = 0.1
-TREE_UPDATE = 50
-FIRE_UPDATE = 100
-CLOUDS_UPDATE = 30
+TICK_SLEEP = 0.05
+TREE_UPDATE = 200
+FIRE_UPDATE = 80
+CLOUDS_UPDATE = 70
 MAP_W, MAP_H = 20, 10
 
 field = Map(MAP_W, MAP_H)
 helico = Helic(MAP_W, MAP_H)
 clouds = Clouds(MAP_W, MAP_H)
+
+
 
 MOVES = {'w': (-1, 0), 'd': (0, 1), 's': (1, 0), 'a': (0, -1)}
 
