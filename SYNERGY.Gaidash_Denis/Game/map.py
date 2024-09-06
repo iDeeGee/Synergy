@@ -11,6 +11,7 @@ from utils import RandNextCell
 
 CELL_TYPES = "🟩🌲🟦🏥🏦🔥"
 TREE_BONUS = 100
+UPGRADE_COST = 5000
 
 class Map:
 
@@ -95,13 +96,23 @@ class Map:
                 if cell == 5:                    
                     self.cells[ri][ci] = 0
         for i in range(5):
-            self.AddFire()   
+            self.AddFire() 
 
+# UPGRATE & HEALTH
+    def UpgradeShop(self):
+        c = RandCell(self.width, self.height)
+        cx, cy = c[0], c[1]
+        self.cells[cx][cy] = 4
+
+# PROC HELICOPTER
     def ProcessHelicopter(self, helico):
         c = self.cells[helico.x][helico.y] 
         if (c == 2):
             helico.tank = helico.mxtank
-        elif (c == 5 and helico.tank > 0):
+        if (c == 5 and helico.tank > 0):
             helico.tank -= 1
             helico.score += TREE_BONUS
             self.cells[helico.x][helico.y] = 1
+        if (c == 4 and helico.score >= UPGRADE_COST):
+            helico.mxtank += 1
+            helico.score -= UPGRADE_COST

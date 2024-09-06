@@ -20,4 +20,4 @@ class Helicopter:
 
     def PrintStats(self):
         print("🔵 ", self.tank,"/",self.mxtank, sep="", end=" | ")
-        print("🏆")
+        print("🏆", self.score)

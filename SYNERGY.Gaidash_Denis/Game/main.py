@@ -18,6 +18,7 @@ field.GenerateForest(3,10) # 3,10
 field.GenerateRiver(10)
 field.GenerateRiver(10)
 field.GenerateRiver(10)
+field.UpgradeShop()
 #field.PrintMap()
 
 helico = Helic(MAP_W, MAP_H)
