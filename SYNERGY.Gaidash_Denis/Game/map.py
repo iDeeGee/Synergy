@@ -40,10 +40,10 @@ class Map:
             for ci in range(self.width):
                 cell = self.cells[ri][ci]
                 if (clouds.cells[ri][ci] == 1):
-                    print("*", end="")
+                    print("⬜", end="")
                 elif (clouds.cells[ri][ci] == 2):
-                    print("$", end="")
-                if (helico.x == ri and helico.y == ci): # был if
+                    print("🟥", end="")
+                elif (helico.x == ri and helico.y == ci): # был if
                     print("🚁", end="")
                 elif (cell >= 0 and cell < len(CELL_TYPES)):
                     print(CELL_TYPES[cell], end="")
@@ -128,8 +128,9 @@ class Map:
     
 
 # PROC HELICOPTER
-    def ProcessHelicopter(self, helico):
+    def ProcessHelicopter(self, helico, clouds):
         c = self.cells[helico.x][helico.y] 
+        d = clouds.cells[helico.x][helico.y]
         if (c == 2):
             helico.tank = helico.mxtank
         if (c == 5  and helico.tank > 0):
@@ -140,5 +141,7 @@ class Map:
             helico.mxtank += 1
             helico.score -= UPGRADE_COST
         if (c == 3 and helico.score >= LIFE_COST):
-            helico.lives += 1
+            helico.lives += 1000
             helico.score -= LIFE_COST
+        if (d == 2):
+            helico.lives -= 1
