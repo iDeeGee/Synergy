@@ -11,7 +11,8 @@ from utils import RandNextCell
 
 CELL_TYPES = "🟩🌲🟦🏥🏦🔥"
 TREE_BONUS = 100
-UPGRADE_COST = 5000
+#TODO: change 5000
+UPGRADE_COST = 300
 
 class Map:
 
@@ -19,6 +20,11 @@ class Map:
         self.width = width
         self.height = height
         self.cells = [[0 for i in range(width)] for j in range(height)]
+        self.GenerateForest(3,10) # 3,10
+        self.GenerateRiver(10)
+        self.GenerateRiver(10)
+        self.GenerateRiver(10)
+        self.UpgradeShop()
 
 # SYSTEM
     def PrintMap(self, helico):
@@ -95,7 +101,7 @@ class Map:
                 cell = self.cells[ri][ci]
                 if cell == 5:                    
                     self.cells[ri][ci] = 0
-        for i in range(5):
+        for i in range(10):
             self.AddFire() 
 
 # UPGRATE & HEALTH
