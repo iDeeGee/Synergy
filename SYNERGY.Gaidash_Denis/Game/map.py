@@ -153,4 +153,4 @@ class Map:
         return {"cells": self.cells}
     
     def ImportData(self, data):
-        self.cells = data["cells"] or [[0 for i in range(self.w)] for j in range(self.h)]
+        self.cells = data["cells"] or [[0 for i in range(self.width)] for j in range(self.height)]

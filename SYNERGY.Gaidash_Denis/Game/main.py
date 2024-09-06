@@ -34,8 +34,8 @@ def ProcessKey(key):
     elif c == 'f':
         data = {"helicopter": helico.ExportData(), 
                 "clouds": clouds.ExportDataCloud(), 
-                "field": field.ExportDataMap, 
-                "tick": tick}
+                "field": field.ExportDataMap()}
+        
         with open("level.json", "w") as lvl:
             json.dump(data, lvl)
     # Load game
@@ -45,7 +45,7 @@ def ProcessKey(key):
             tick = data["tick"] or 1
             helico.ImportData(data["helicopter"])
             field.ImportData(data["field"])
-            clouds.ImportData(data["clouds"])
+            clouds.ImportData(data["clouds"]) 
 
 
 
