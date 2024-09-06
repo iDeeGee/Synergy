@@ -30,7 +30,7 @@ class Map:
         self.Hospital()
 
 # SYSTEM
-    def PrintMap(self, helico):
+    def PrintMap(self, helico, clouds):
         """
         Вывод тайлов карты
         """
@@ -39,7 +39,11 @@ class Map:
             print("⬛", end="")
             for ci in range(self.width):
                 cell = self.cells[ri][ci]
-                if (helico.x == ri and helico.y == ci):
+                if (clouds.cells[ri][ci] == 1):
+                    print("*", end="")
+                elif (clouds.cells[ri][ci] == 2):
+                    print("$", end="")
+                if (helico.x == ri and helico.y == ci): # был if
                     print("🚁", end="")
                 elif (cell >= 0 and cell < len(CELL_TYPES)):
                     print(CELL_TYPES[cell], end="")

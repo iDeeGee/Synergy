@@ -1,5 +1,5 @@
 # 🌲🌊🚁🟩🔥🏥❤🔵🏦🌥️⚡🏆⬛
-
+from clouds import Clouds
 from pynput import keyboard
 from map import Map
 import time
@@ -11,10 +11,12 @@ from helic import Helicopter as Helic
 TICK_SLEEP = 0.05
 TREE_UPDATE = 50
 FIRE_UPDATE = 100
+CLOUDS_UPDATE = 30
 MAP_W, MAP_H = 20, 10
 
 field = Map(MAP_W, MAP_H)
 helico = Helic(MAP_W, MAP_H)
+clouds = Clouds(MAP_W, MAP_H)
 
 MOVES = {'w': (-1, 0), 'd': (0, 1), 's': (1, 0), 'a': (0, -1)}
 
@@ -41,10 +43,12 @@ while True:
     #print("TICK", tick)
     field.ProcessHelicopter(helico)
     helico.PrintStats()
-    field.PrintMap(helico)
+    field.PrintMap(helico, clouds)
     tick += 1
     time.sleep(TICK_SLEEP)
     if(tick % TREE_UPDATE == 0):
         field.AddTree()
     if(tick % FIRE_UPDATE == 0):
-        field.UpdateFires()      
+        field.UpdateFires()   
+    if(tick % CLOUDS_UPDATE == 0):
+        clouds.UpdateClouds()   
